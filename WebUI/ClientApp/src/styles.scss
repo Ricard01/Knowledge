@@ -1,0 +1,87 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Required
+@use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
+$my-custom-typography-config: mat.define-typography-config($font-family: 'Titillium Web',
+    $body-1: mat.define-typography-level(1Rem, 32px, 400),
+    $body-2: mat.define-typography-level(1Rem, 32px, 600));
+
+@include mat.core($my-custom-typography-config);
+
+/* Importing Bootstrap SCSS file. */
+$primary: #3f51b5; // Order matters
+$secondary: #ff4081;
+@import "~bootstrap/scss/bootstrap";
+
+
+/* Importing Bootstrap Icons SCSS file. */
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons';
+
+/* Importing Angular Material Theme */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Importing Quill and Highlight Theme. */
+
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';
+@import '~highlight.js/styles/atom-one-dark.css';
+
+.display-4 {
+  font-size: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .display-4 {
+    font-size: 3rem;
+  }
+}
+
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+table {
+  width: 100%;
+}
+
+// https://www.codingdeals.com/blog/why-mat-autocomplete-not-showing-in-bootstrap-modal/
+.cdk-overlay-container,
+.cdk-overlay-pane {
+  z-index: 99999 !important;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #E0E0E0;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #ff4081;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  font-weight: bold;
+  color: #FFFFFF
+}
+
+i {
+  font-size: 20px;
+}
+
+.bi-pencil-square {
+  color: cornflowerblue;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.bi-trash {
+  margin-right: 5px;
+  margin-left: 5px;
+  color: #ff4081;
+}

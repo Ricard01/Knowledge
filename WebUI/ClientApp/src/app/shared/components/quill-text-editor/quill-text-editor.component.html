@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+
+    <quill-editor formControlName="quillMessage" [placeholder]="''"
+        [modules]="quillConfiguration" (onContentChanged)="contentChanged($event.html)"
+        [styles]="{'min-height': '150px'}">
+
+    </quill-editor>
+
+</form>

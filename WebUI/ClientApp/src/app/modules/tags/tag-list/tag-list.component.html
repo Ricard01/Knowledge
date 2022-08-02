@@ -1,0 +1,106 @@
+<div class="col-2">
+
+    <button-container [settings]="settingsButton"></button-container>
+
+</div>
+
+<div class="row justify-content-between mt-2">
+
+    <div class="col-8">
+        <ng-container *ngIf="!isDisabled">
+
+            <mat-form-field appearance="fill">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="..." #input>
+            </mat-form-field>
+
+        </ng-container>
+
+    </div>
+
+    <div class="col-4">
+        <mat-form-field appearance="fill" class="col-md-4">
+
+            <mat-label>Group By</mat-label>
+            <mat-select [(ngModel)]="groupingColumn" name="item" (ngModelChange)="buildDataSource()">
+                <mat-option [value]="null">None</mat-option>
+                <mat-option *ngFor="let item of groupOptions" [value]="item">
+                    {{item | titlecase}}
+                </mat-option>
+            </mat-select>
+
+        </mat-form-field>
+
+    </div>
+
+
+
+</div>
+
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isDisabled"> Id </th>
+
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isDisabled"> Name </th>
+
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isDisabled"> Category </th>
+
+        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Options </th>
+        <td mat-cell *matCellDef="let row; let i= index;">
+            <a (click)="edit( row )">
+                <i class="bi bi-pencil-square"></i>
+
+
+            </a>
+
+            <a (click)="delete( row.id, row.name, row.category )">
+                <i class="bi bi-trash"></i>
+
+            </a>
+        </td>
+    </ng-container>
+
+
+    <!-- Default Table lines -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Group header cells-->
+    <ng-container matColumnDef="groupHeader">
+        <td colspan="999" mat-cell *matCellDef="let group">
+            <strong>{{group.groupName | titlecase }}</strong>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="groupReducer">
+        <td colspan="1" mat-cell *matCellDef="let group">
+            <div fxFill fxLayoutAlign="center center">
+                <mat-icon *ngIf="!group.reduced">expand_less</mat-icon>
+                <mat-icon *ngIf="group.reduced">expand_more</mat-icon>
+            </div>
+        </td>
+    </ng-container>
+
+    <!-- Group line -->
+    <tr mat-row class="clickable" *matRowDef="let row; columns: ['groupReducer','groupHeader']; when: isGroup"
+        (click)="reduceGroup(row)">
+    </tr>
+
+</table>
+<ng-container *ngIf="!isDisabled">
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+</ng-container>

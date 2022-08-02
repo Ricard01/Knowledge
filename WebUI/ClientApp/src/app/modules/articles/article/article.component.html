@@ -1,0 +1,84 @@
+<div class="container">
+
+    <button class="col-md-2 offset-md-10 btn btn-primary my-2" type="button" [disabled]="!articleForm.valid" (click)="save()">Save</button>
+    <hr class="mb-3 mt-2">
+
+    <div class="row ">
+
+        <mat-hint *ngFor="let item of this.errors | keyvalue" class="mat-error">
+            <small> {{item.value}} &nbsp;</small>
+        </mat-hint>
+
+        <!-- FORM -->
+        <div [ngClass]="{'col-11':showPreview,'col-5': !showPreview }">
+
+            <form [formGroup]="articleForm">       
+
+                <!-- Title -->
+                <mat-form-field>
+
+                    <mat-label>Title</mat-label>
+
+                    <input formControlName="title" matInput placeholder="Ex Mi title is about.." appearance="outline"
+                        required>
+
+                    <mat-hint *ngIf="articleForm.controls.title?.errors">
+                        <span class="mat-error"> {{articleForm.controls.title?.errors?.maxLength?.message}} </span>
+                    </mat-hint>
+
+                </mat-form-field>
+
+                <!-- Message -->
+                <app-quill-text-editor class="mt-4" formGroupName="quill" (quillEvent)="quillTextPreview($event)">
+                </app-quill-text-editor>
+
+                <div class="row justify-content-between mt-3">
+                    <!-- Category -->
+                    <app-category-autocomplete class="col-4" formGroupName="category"
+                        (categoryIdEvent)="getTagsByCategoryId($event)">
+                    </app-category-autocomplete>
+
+                    <!-- Tags -->
+                    <app-tags-chips class="col-8" formGroupName="articleTags" [tagList]="allTags">
+                    </app-tags-chips>
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- BUTTON PREVIEW -->
+        <div class="col-1 middle">
+
+            <div class="h-75  btn btn-outline-secondary middle" (click)="showPreview = !showPreview">
+                <span class="vertical">P R E V I E W</span>
+            </div>
+
+        </div>
+
+
+        <!-- NGIF PREVIEW -->
+        <div class="col-6 " *ngIf="!showPreview">
+            <p>
+
+                <small class="badge rounded-pill bg-light text-dark me-1" style="text-align:left;"
+                    *ngFor="let item of this.form.articleTags.value.tags">
+                    {{ item.name }}
+                </small>
+
+                <span class="category" style="float:right;"> {{ this.form.category.value.categoryName.name }}</span>
+            </p>
+
+
+
+            <p class="fs-2"> {{ articleForm.get('title').value }}</p>
+
+            <quill-view-html [content]="this.form.quill.value.quillMessage"></quill-view-html>
+
+        </div>
+
+
+    </div>
+
+</div>

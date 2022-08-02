@@ -1,0 +1,73 @@
+.mat-form-field {
+    width: 90%;
+}
+
+.searchcontainer {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.category {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    margin-left: 2px;
+    background-color: #F0F0F0;
+}
+
+.result-card {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 150px;
+    margin-bottom: 10px;
+}
+
+.articles-items {
+    height: 200px;
+}
+
+.searchcontainer .search-part {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-icon {
+    font-size: 30px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.mat-card-title {
+    font-size: medium;
+}
+
+.mat-card-subtitle {
+    font-size: small;
+    margin: 0px;
+}
+
+.mat-card-content {
+    margin: 0px;
+    font-size: small;
+}
+
+.mat-button-settings {
+    cursor: pointer;
+    vertical-align: 5px;
+    margin-left: 2px;
+    text-align: left;
+}
+
+.mat-icon-settings {
+    vertical-align: 5px;
+}

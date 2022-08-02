@@ -1,0 +1,31 @@
+<div class="container">
+
+    <article *ngIf="article">
+
+        <p>
+            <small class="badge rounded-pill bg-light text-dark me-1" style="text-align:left;"
+                *ngFor="let item of article.articleTags">
+                {{ item.name }}
+            </small>
+
+            <span class="category" style="float:right;"> {{ article?.category }} </span>
+        </p>
+
+        <p>
+            <small style="text-align:left;"> {{ article.created | date: 'dd/MM/yyyy' }} </small>
+
+            <small *ngIf="article.lastModified" class="fw-lighter ms-3"> Last Updated {{ article.lastModified | date:
+                'dd/MM/yyyy' }} </small>
+        </p>
+
+        <h1 style="text-align:center;"> {{ article.title }}</h1>
+
+        <hr>
+
+        <div class="ql-container ql-snow" style="border-width: 0;">
+            <div class="ql-editor" [innerHTML]="byPassHTML(article.message)"></div>
+        </div>
+
+    </article>
+
+</div>

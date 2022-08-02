@@ -1,0 +1,22 @@
+## Ignore temporary files
+
+# Specific files
+
+*.config
+*.vscode
+DS_Store
+**.DS_Store
+
+
+Application/bin/
+Application/obj/
+
+Domain/bin/
+Domain/obj/
+
+Infrastructure/bin/
+Infrastructure/obj/
+
+# Visual Studio 2015 cache/options directory
+.vs/
+

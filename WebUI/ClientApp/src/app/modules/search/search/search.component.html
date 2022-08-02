@@ -1,0 +1,117 @@
+<!-- START SEARCH INPUT FORM  -->
+<form [formGroup]="formSearch">
+
+    <div class="searchcontainer margen  p-3">
+
+        <div class="search-part">
+
+            <mat-form-field appearance="fill">
+
+                <input placeholder="search term" autocomplete="off" type="search" #inputSearch aria-label="State"
+                    #trigger="matAutocompleteTrigger" (keydown.enter)="onEnter(); trigger.closePanel()" matInput
+                    formControlName="searchInput" [matAutocomplete]="auto">
+
+                <mat-icon matSuffix>search</mat-icon>
+
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+
+                    <mat-option *ngFor="let article of titles$ | async" [value]="article.title">
+                        <span><b>{{article.title}}</b> </span>
+                    </mat-option>
+
+                </mat-autocomplete>
+
+            </mat-form-field>
+
+            <button type="button" mat-icon-button aria-label="settings" class="mat-button-settings"
+                (click)="showCategories = !showCategories">
+                <mat-icon matSuffix class="mat-icon-settings">settings</mat-icon>
+            </button>
+
+
+            <!-- TODO Ask if this solution is the correoct or recommended. If i a use ngif makes several calls when click on the button -->
+            <app-category-select [showSelect]=showCategories (categoryIdEvent)="getCategoryId($event)">
+            </app-category-select>
+
+
+        </div>
+
+    </div>
+
+</form>
+<!-- ENDS SEARCH INPUT FORM  -->
+
+
+<ng-container *ngIf="this.totalCount == 0; else results">
+
+    No results found
+
+</ng-container>
+
+<!-- START RESULTS  -->
+<ng-template #results>
+
+    <div
+        *ngFor="let article of articlesItems | paginate: { itemsPerPage: pageSize, currentPage: page , totalItems: totalCount}">
+        <mat-card class="result-card">
+
+            <mat-card-title>
+                <a routerLink="../articles/{{ article.title }}/{{article.id }}"> {{ article.title}} </a>
+            </mat-card-title>
+
+            <mat-card-subtitle>
+
+                <span class="category"> {{ article.category }} </span>
+                <span class="ps-1 small" *ngFor="let item of article.articleTags"> {{ item.name }} </span>
+
+            </mat-card-subtitle>
+
+            <mat-card-content>
+                <quill-view-html format="text" [content]="article.message"></quill-view-html>
+            </mat-card-content>
+
+        </mat-card>
+
+    </div>
+
+
+    <ng-container *ngIf="articlesItems?.length > 0">
+
+
+        <div class="d-flex justify-content-between mt-5">
+
+
+            <div class="col-3">
+
+                <label> Results Found : {{ totalCount }} </label>
+
+            </div>
+
+
+            <pagination-controls (pageChange)="handlePageChange(page = $event)"></pagination-controls>
+
+
+            <div class="col-3 text-right">
+
+                <label class="d-inline-block mr-3 ">Items</label>
+
+                <select class="custom-select " style="width: auto;" [(ngModel)]="pageSize"
+                    (change)="handlePageSizeChange($event)">
+
+                    <option *ngFor="let size of pageSizes" [value]="size">
+                        {{ size }}
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+    </ng-container>
+
+
+</ng-template>
+<!--ENDS RESULTS  -->
