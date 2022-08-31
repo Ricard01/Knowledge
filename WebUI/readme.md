@@ -23,9 +23,8 @@ This layer is a single page application based on Angular 13 and ASP.NET Core 6. 
 
   * optional export for azure or another deploy
     * `$pwd = ConvertTo-SecureString -String 'NoWayJosePassword!!' -Force -AsPlainText`
-
-  * $path = 'Cert:\LocalMachine\My\' + $cert.thumbprint
-    * `Export-PfxCertificate -cert $path -FilePath c:KnowledgeCertificate.pfx -Password $pwd`
+    * `$path = 'Cert:\LocalMachine\My\' + $cert.thumbprint`
+    * `Export-PfxCertificate -cert $path -FilePath c:\KnowledgeCertificate.pfx -Password $pwd`
 
 * Modify host file (c:\Windows\System32\Drivers\etc\hosts) if you want to connect using a diferent domain name example. 192.168.XXX.XXX knowledge.com.
 * [Automatically generating C# API clients on build with NSwag](https://blog.sanderaernouts.com/autogenerate-csharp-api-client-with-nswag).
